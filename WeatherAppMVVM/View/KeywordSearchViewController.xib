@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KeywordSearchViewController" customModule="WeatherAppMVVM" customModuleProvider="target">
             <connections>
+                <outlet property="keywordSearchBar" destination="Ekc-KH-l9f" id="uda-i9-oMh"/>
+                <outlet property="tableView" destination="Wai-bh-eL8" id="ZSK-dl-ErA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -25,9 +27,6 @@
                         <constraint firstAttribute="height" constant="44" id="nkr-OL-Su5"/>
                     </constraints>
                     <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="OPO-sw-Aw7"/>
-                    </connections>
                 </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wai-bh-eL8">
                     <rect key="frame" x="0.0" y="103" width="393" height="715"/>

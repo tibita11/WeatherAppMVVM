@@ -8,6 +8,9 @@ target 'WeatherAppMVVM' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxDataSources'
+  pod 'RxOptional'
+  pod 'RealmSwift'
+  pod 'RxRealm'
 
   # Pods for WeatherAppMVVM
 

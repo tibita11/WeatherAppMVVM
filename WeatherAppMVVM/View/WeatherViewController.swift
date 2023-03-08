@@ -22,6 +22,21 @@ class WeatherViewController: UIViewController {
     private var locations: List<Location>?
     /// Realmが更新された場合に通知されるHot Observable
     var itemsObservable: Observable<Results<LocationList>>!
+    /// CollectionView下部に設置
+    private let slidingLabel = UILabel()
+    /// NavigationBar下部までの高さ
+    var heightToNavBar: CGFloat {
+        var height: CGFloat = 0
+        if let navigationController = self.navigationController {
+            let navBarMaxY = navigationController.navigationBar.frame.maxY
+            let statusBarHeight = navigationController.view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+            height = navBarMaxY + statusBarHeight
+        }
+        return height
+    }
+    
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +44,15 @@ class WeatherViewController: UIViewController {
         setUpPageView()
     }
     
+    
+    // MARK: - Action
+    
     /// 初期設定
     private func setUp() {
+        // CollectionView下部にUILabelを設置
+        slidingLabel.frame = CGRect(x: 0, y: heightToNavBar + collectionView.bounds.height, width: 0, height: 0.5)
+        slidingLabel.backgroundColor = .darkGray
+        view.addSubview(slidingLabel)
         // NavigationBar設定
         let registrationButton = UIBarButtonItem(title: "地点登録", style: .plain, target: self, action: #selector(navigateToRegistrationScreen))
         navigationItem.rightBarButtonItems = [registrationButton]
@@ -72,6 +94,21 @@ class WeatherViewController: UIViewController {
     @objc private func navigateToRegistrationScreen() {
         let registrationVC = RegistrationViewController(nibName: "RegistrationViewController", bundle: nil)
         navigationController?.pushViewController(registrationVC, animated: true)
+    }
+    
+    /// pageまでSlifdingLabelをスライドさせる
+    /// - Parameter itemsCount: 配列の総数
+    /// - Parameter page: ページ番号
+    func moveSlidingLabel(itemsCount: Int? = nil, to page: Int) {
+        if let itemsCount = itemsCount {
+            // itemsが更新されている場合は幅を更新する
+            slidingLabel.frame.size.width = view.bounds.width / CGFloat(itemsCount)
+        }
+        
+        UIView.animate(withDuration: 0.2, delay: 0, animations: { [weak self] in
+            self!.slidingLabel.frame.origin.x = self!.slidingLabel.bounds.width * CGFloat(page)
+        })
+        
     }
 
 

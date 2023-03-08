@@ -56,9 +56,12 @@ class MainPageViewController: UIPageViewController {
     
     /// setViewControllersメソッドと同時にcurrentPageを更新する
     func setUpViewControllers(viewControllers: [UIViewController], page: Int,  direction: UIPageViewController.NavigationDirection, animated: Bool) {
+        // ViewControllersの設定と現在ページの設定
         setViewControllers([viewControllers[page]], direction: direction, animated: animated)
         self.currentPage = page
-        
+        // 親ViewのUILabelをスライドさせる
+        guard let weatherVC = parent as? WeatherViewController else { return }
+        weatherVC.moveSlidingLabel(itemsCount: viewControllers.count , to: page)
     }
 
 
@@ -93,6 +96,9 @@ extension MainPageViewController: UIPageViewControllerDelegate, UIPageViewContro
         guard completed, let viewController = pageViewController.viewControllers?.first, let index = controllers.firstIndex(of: viewController) else { return }
         // 現在のページを保持
         currentPage = index
+        // 親ViewのUILabelをスライドさせる
+        guard let weatherVC = parent as? WeatherViewController else { return }
+        weatherVC.moveSlidingLabel(to: index)
         
     }
 }

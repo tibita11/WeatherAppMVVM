@@ -132,7 +132,7 @@ class RegistrationViewController: UIViewController {
                     switch defaultType.type {
                     case .placeAndFacility:
                         // 検索画面に遷移
-                        let keywordSearchVC = KeywordSearchViewController()
+                        let keywordSearchVC = KeywordSearchViewController(nibName: "KeywordSearchViewController", bundle: nil)
                         self!.navigationController?.pushViewController(keywordSearchVC, animated: true)
                     case .searchCurrentLocation:
                         // 現在位置を取得する処理

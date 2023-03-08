@@ -72,6 +72,7 @@ class RegistrationViewModel: NSObject, RegistrationViewModelType {
         // 更新通知
         Observable.collection(from: locationList)
             .subscribe(onNext: { [weak self] locationList in
+                print("これは登録画面です:\(locationList)")
                 var items: [CellType] = []
                 if let locationList = locationList.first {
                     // listに値がある場合

@@ -41,9 +41,7 @@ class DataStorage {
                 return
             }
             // 指定番目を削除
-            let object = result.list[row]
             result.list.remove(at: row)
-            realm.delete(object)
         }
         
     }

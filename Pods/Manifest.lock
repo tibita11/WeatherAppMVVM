@@ -23,6 +23,7 @@ PODS:
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
+  - XLPagerTabStrip (9.0.0)
 
 DEPENDENCIES:
   - RealmSwift
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - RxOptional
   - RxRealm
   - RxSwift
+  - XLPagerTabStrip
 
 SPEC REPOS:
   trunk:
@@ -43,6 +45,7 @@ SPEC REPOS:
     - RxRealm
     - RxRelay
     - RxSwift
+    - XLPagerTabStrip
 
 SPEC CHECKSUMS:
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
@@ -54,7 +57,8 @@ SPEC CHECKSUMS:
   RxRealm: 666c8785327fe2fff972a3093b35dc7055c1ca38
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: a69d8490238d6f8709543f35c4522a87e8b0be2a
+PODFILE CHECKSUM: 2ea543d5884f69e82680efbc7b7810ba3b09ecb3
 
 COCOAPODS: 1.11.3

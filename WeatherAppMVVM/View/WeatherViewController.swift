@@ -88,6 +88,8 @@ extension WeatherViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "locationCell", for: indexPath) as! LocationTabCollectionViewCell
         cell.locationLabel.text = locations?[indexPath.row].title ?? ""
+        cell.tag = indexPath.row
+        cell.delegate = self
         return cell
     }
 
@@ -107,5 +109,22 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDeleg
         // cell間隔0
         return 0
     }
+    
+}
+
+
+// MARK: - LocationTabCollectionViewCellDelegate
+
+extension WeatherViewController: LocationTabCollectionViewCellDelegate {
+    func moveCurrentPage(to page: Int) {
+        guard let mainPageVC = children.first as? MainPageViewController else { return }
+        // 進む方向を判断する
+        let currentPage = mainPageVC.currentPage
+        var direction: UIPageViewController.NavigationDirection = .forward
+        if currentPage > page { direction = .reverse }
+        
+        mainPageVC.setUpViewControllers(viewControllers: mainPageVC.controllers, page: page, direction: direction, animated: true)
+    }
+    
     
 }

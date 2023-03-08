@@ -11,7 +11,9 @@ import RealmSwift
 
 class MainPageViewController: UIPageViewController {
     
-    private var controllers = [UIViewController]()
+    var controllers = [UIViewController]()
+    /// 現在のページを保持
+    var currentPage = 0
     /// Realmが更新された場合に通知されるHot Observable
     private var itemsObservable: Observable<Results<LocationList>>
     
@@ -46,10 +48,17 @@ class MainPageViewController: UIPageViewController {
                     forecasetControllers.append(threeHourForecastVC)
                 }
                 self!.controllers = forecasetControllers
-                self!.setViewControllers([self!.controllers[0]], direction: .forward, animated: true)
+                self!.setUpViewControllers(viewControllers: self!.controllers, page: 0, direction: .forward, animated: true)
                 
             })
             .disposed(by: disposeBag)
+    }
+    
+    /// setViewControllersメソッドと同時にcurrentPageを更新する
+    func setUpViewControllers(viewControllers: [UIViewController], page: Int,  direction: UIPageViewController.NavigationDirection, animated: Bool) {
+        setViewControllers([viewControllers[page]], direction: direction, animated: animated)
+        self.currentPage = page
+        
     }
 
 
@@ -77,5 +86,13 @@ extension MainPageViewController: UIPageViewControllerDelegate, UIPageViewContro
             return controllers[index + 1]
         }
         return nil
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        // スライド完了時のページを取得する
+        guard completed, let viewController = pageViewController.viewControllers?.first, let index = controllers.firstIndex(of: viewController) else { return }
+        // 現在のページを保持
+        currentPage = index
+        
     }
 }

@@ -23,11 +23,22 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hWJ-eb-gKp">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <connections>
+                            <action selector="tapAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="drz-Ju-d17"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="hWJ-eb-gKp" secondAttribute="bottom" id="2nA-uW-Gda"/>
                 <constraint firstAttribute="trailing" secondItem="dbZ-eT-cMM" secondAttribute="trailing" id="4Hl-eZ-J3n"/>
+                <constraint firstAttribute="trailing" secondItem="hWJ-eb-gKp" secondAttribute="trailing" id="YSk-c4-Scg"/>
+                <constraint firstItem="hWJ-eb-gKp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cwI-1U-nYJ"/>
+                <constraint firstItem="hWJ-eb-gKp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="frF-ei-xOT"/>
                 <constraint firstAttribute="bottom" secondItem="dbZ-eT-cMM" secondAttribute="bottom" id="io2-Xv-ceT"/>
                 <constraint firstItem="dbZ-eT-cMM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vT5-y4-K49"/>
                 <constraint firstItem="dbZ-eT-cMM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zS9-ly-rxG"/>
@@ -35,7 +46,7 @@
             <connections>
                 <outlet property="locationLabel" destination="dbZ-eT-cMM" id="Nxv-7x-CpK"/>
             </connections>
-            <point key="canvasLocation" x="-49" y="-11"/>
+            <point key="canvasLocation" x="-50.381679389312978" y="-11.267605633802818"/>
         </collectionViewCell>
     </objects>
 </document>

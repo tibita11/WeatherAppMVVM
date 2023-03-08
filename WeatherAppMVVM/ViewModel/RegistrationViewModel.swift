@@ -18,7 +18,7 @@ struct RegistrationViewInput {
 }
 
 
-protocol RegistrationViewModelOutput {
+protocol RegistrationViewModelOutput: AnyObject {
     var itemObserver: Observable<[SettingSectionModel]> { get }
     var locationErrorObserver: Observable<LocationError> { get }
     var isUpdatingObserver: Observable<Bool> { get }
@@ -32,7 +32,7 @@ protocol RegistrationViewModelType {
 
 class RegistrationViewModel: NSObject, RegistrationViewModelType {
     
-    var output: RegistrationViewModelOutput?
+    weak var output: RegistrationViewModelOutput?
     
     private let disposeBag = DisposeBag()
     

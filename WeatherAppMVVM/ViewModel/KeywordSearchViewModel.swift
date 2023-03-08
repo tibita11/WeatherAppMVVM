@@ -16,7 +16,7 @@ struct KeywordSearchViewModelInput {
     let itemSelected: ControlEvent<IndexPath>
 }
 
-protocol KeywordSearchViewModelOutput {
+protocol KeywordSearchViewModelOutput: AnyObject {
     var resultsObserver: Observable<[MKLocalSearchCompletion]> { get }
     var selectedDataObserver: Observable<MKLocalSearchCompletion?> { get }
 }
@@ -30,7 +30,7 @@ protocol KeywordSearchViewModelType {
 
 class KeywordSearchViewModel: NSObject, KeywordSearchViewModelType {
     
-    var output: KeywordSearchViewModelOutput?
+    weak var output: KeywordSearchViewModelOutput?
     
     private let disposeBag = DisposeBag()
     /// サジェスト機能を使用する

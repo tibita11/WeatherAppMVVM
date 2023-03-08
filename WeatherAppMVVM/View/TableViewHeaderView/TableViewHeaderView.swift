@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol TableViewHeaderViewDelegate {
+protocol TableViewHeaderViewDelegate: AnyObject {
     func editAction(sender: UIButton)
 }
 
@@ -17,7 +17,7 @@ class TableViewHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var editButton: UIButton!
     
-    var delegate: TableViewHeaderViewDelegate?
+    weak var delegate: TableViewHeaderViewDelegate?
     
     func setup(headerTitle: String, isHidden: Bool = true, delegate: TableViewHeaderViewDelegate? = nil, editButtonTitle: String? = nil) {
         editButton.layer.cornerRadius = 15

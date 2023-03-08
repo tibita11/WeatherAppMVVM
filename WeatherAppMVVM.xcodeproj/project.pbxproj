@@ -32,6 +32,8 @@
 		A5AA080529B17C3D00890B0B /* ThreeHourForecastViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5AA080329B17C3D00890B0B /* ThreeHourForecastViewController.xib */; };
 		A5AEDB8829B821AB000A1629 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AEDB8629B821AB000A1629 /* WeatherViewController.swift */; };
 		A5AEDB8929B821AB000A1629 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5AEDB8729B821AB000A1629 /* WeatherViewController.xib */; };
+		A5AEDB8C29B851D5000A1629 /* LocationTabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AEDB8A29B851D5000A1629 /* LocationTabCollectionViewCell.swift */; };
+		A5AEDB8D29B851D5000A1629 /* LocationTabCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5AEDB8B29B851D5000A1629 /* LocationTabCollectionViewCell.xib */; };
 		A5F4E92829B0ED7C0032DD40 /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F4E92729B0ED7C0032DD40 /* ItemData.swift */; };
 		A5F4E92A29B0EDA40032DD40 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F4E92929B0EDA40032DD40 /* SectionModel.swift */; };
 		A5F4E92C29B0EDD30032DD40 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F4E92B29B0EDD30032DD40 /* Location.swift */; };
@@ -68,6 +70,8 @@
 		A5AA080329B17C3D00890B0B /* ThreeHourForecastViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThreeHourForecastViewController.xib; sourceTree = "<group>"; };
 		A5AEDB8629B821AB000A1629 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		A5AEDB8729B821AB000A1629 /* WeatherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherViewController.xib; sourceTree = "<group>"; };
+		A5AEDB8A29B851D5000A1629 /* LocationTabCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTabCollectionViewCell.swift; sourceTree = "<group>"; };
+		A5AEDB8B29B851D5000A1629 /* LocationTabCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationTabCollectionViewCell.xib; sourceTree = "<group>"; };
 		A5F4E92729B0ED7C0032DD40 /* ItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
 		A5F4E92929B0EDA40032DD40 /* SectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
 		A5F4E92B29B0EDD30032DD40 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 		A569C3D229B0E36C00D03CB2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A5AEDB8E29B851DD000A1629 /* LocationTabCollectionViewCell */,
 				A57A774629B0E9A5009EDA84 /* UpdatingView */,
 				A57A774129B0E842009EDA84 /* TableViewHeaderView */,
 				A57A773C29B0E6EE009EDA84 /* LocationTableViewCell */,
@@ -205,6 +210,15 @@
 			path = UpdatingView;
 			sourceTree = "<group>";
 		};
+		A5AEDB8E29B851DD000A1629 /* LocationTabCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A5AEDB8A29B851D5000A1629 /* LocationTabCollectionViewCell.swift */,
+				A5AEDB8B29B851D5000A1629 /* LocationTabCollectionViewCell.xib */,
+			);
+			path = LocationTabCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		D5530DD3D1C778DA7B429BCA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +291,7 @@
 				A569C3D829B0E3C300D03CB2 /* RegistrationViewController.xib in Resources */,
 				A569C3CB29B0E34A00D03CB2 /* LaunchScreen.storyboard in Resources */,
 				A57A774529B0E881009EDA84 /* TableViewHeaderView.xib in Resources */,
+				A5AEDB8D29B851D5000A1629 /* LocationTabCollectionViewCell.xib in Resources */,
 				A5AA080529B17C3D00890B0B /* ThreeHourForecastViewController.xib in Resources */,
 				A5AEDB8929B821AB000A1629 /* WeatherViewController.xib in Resources */,
 				A57A774029B0E6FD009EDA84 /* LocationTableViewCell.xib in Resources */,
@@ -346,6 +361,7 @@
 				A569C3D729B0E3C300D03CB2 /* RegistrationViewController.swift in Sources */,
 				A5AA080429B17C3D00890B0B /* ThreeHourForecastViewController.swift in Sources */,
 				A569C3BF29B0E34900D03CB2 /* AppDelegate.swift in Sources */,
+				A5AEDB8C29B851D5000A1629 /* LocationTabCollectionViewCell.swift in Sources */,
 				A57A774829B0E9CC009EDA84 /* UpdatingView.swift in Sources */,
 				A5618FA529B0EFE30086226B /* RegistrationViewModel.swift in Sources */,
 				A5618FA129B0EF180086226B /* DataStorage.swift in Sources */,

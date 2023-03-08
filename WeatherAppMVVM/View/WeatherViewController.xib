@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherViewController" customModule="WeatherAppMVVM" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="ehM-ho-Jhm" id="eWq-qG-jb2"/>
+                <outlet property="containerView" destination="AOi-NF-Ngm" id="HTe-dx-PcZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,12 +34,20 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOi-NF-Ngm">
+                    <rect key="frame" x="0.0" y="139" width="375" height="528"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="AOi-NF-Ngm" secondAttribute="trailing" id="CqA-Vz-3JR"/>
+                <constraint firstItem="AOi-NF-Ngm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="XRP-ke-Hw1"/>
                 <constraint firstItem="ehM-ho-Jhm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ady-WF-xDR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="AOi-NF-Ngm" secondAttribute="bottom" id="bPp-Oq-dVa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ehM-ho-Jhm" secondAttribute="trailing" id="cVd-6h-fgM"/>
+                <constraint firstItem="AOi-NF-Ngm" firstAttribute="top" secondItem="ehM-ho-Jhm" secondAttribute="bottom" constant="20" id="ra8-vH-fey"/>
                 <constraint firstItem="ehM-ho-Jhm" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="xXS-es-JeW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

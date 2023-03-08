@@ -15,13 +15,18 @@ class WeatherViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var containerView: UIView!
+    
     private let disposeBag = DisposeBag()
     /// CollectionViewに表示するデータを格納
     private var locations: List<Location>?
+    /// Realmが更新された場合に通知されるHot Observable
+    var itemsObservable: Observable<Results<LocationList>>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        setUpPageView()
     }
     
     /// 初期設定
@@ -36,14 +41,31 @@ class WeatherViewController: UIViewController {
         // Realm通知
         let realm = try! Realm()
         let locationList = realm.objects(LocationList.self)
+        itemsObservable = Observable.collection(from: locationList).share(replay: 1)
         // collectionViewとバインド
-        Observable.collection(from: locationList)
+        itemsObservable
             .subscribe(onNext: { [weak self] locationList in
                 // 取得したlistを格納
                 self!.locations = locationList.first?.list
                 self!.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
+    }
+    
+    /// PageViewController初期設定
+    private func setUpPageView() {
+        let mainPageVC = MainPageViewController(observable: itemsObservable)
+        addChild(mainPageVC)
+        mainPageVC.view.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(mainPageVC.view)
+        // オートレイアウト設定
+        mainPageVC.view.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        mainPageVC.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        mainPageVC.view.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        mainPageVC.view.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        
+        mainPageVC.didMove(toParent: self)
+        
     }
     
     /// 登録画面への遷移

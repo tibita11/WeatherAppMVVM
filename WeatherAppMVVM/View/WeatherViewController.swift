@@ -76,7 +76,7 @@ class WeatherViewController: UIViewController {
     
     /// PageViewController初期設定
     private func setUpPageView() {
-        let mainPageVC = MainPageViewController(observable: itemsObservable)
+        let mainPageVC = MainPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
         addChild(mainPageVC)
         mainPageVC.view.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(mainPageVC.view)
@@ -87,6 +87,28 @@ class WeatherViewController: UIViewController {
         mainPageVC.view.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         
         mainPageVC.didMove(toParent: self)
+        
+        // pageViewControllerとバインド
+        itemsObservable
+            .subscribe(onNext: { [weak self] locationList in
+                guard let list = locationList.first?.list else { return }
+                // controllersの設定
+                var forecastControllers: [UIViewController] = []
+                list.forEach {
+                    let threeHourForecasetVC = ThreeHourForecastViewController(location: $0)
+                    forecastControllers.append(threeHourForecasetVC)
+                }
+                // スクロール後のページを判定
+                let previousValue = mainPageVC.controllers.count
+                let currentValue = forecastControllers.count
+                var page = 0
+                // pageを追加した場合は、最後のページを表示する
+                if previousValue != 0, previousValue < currentValue { page = currentValue - 1 }
+                
+                mainPageVC.setUpPageViewControllers(viewControllers: forecastControllers, page: page, direction: .forward, animated: false)
+                self!.moveSlidingLabel(itemsCount: forecastControllers.count, to: page)
+            })
+            .disposed(by: disposeBag)
         
     }
     
@@ -160,7 +182,8 @@ extension WeatherViewController: LocationTabCollectionViewCellDelegate {
         var direction: UIPageViewController.NavigationDirection = .forward
         if currentPage > page { direction = .reverse }
         
-        mainPageVC.setUpViewControllers(page: page, direction: direction, animated: true)
+        moveSlidingLabel(to: page)
+        mainPageVC.setUpPageViewControllers(viewControllers: nil, page: page, direction: direction, animated: true)
     }
     
     

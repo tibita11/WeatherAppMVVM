@@ -42,26 +42,34 @@ class MainPageViewController: UIPageViewController {
             .subscribe(onNext: { [weak self] locationList in
                 guard let list = locationList.first?.list else { return }
                 // controllersの設定
-                var forecasetControllers: [UIViewController] = []
+                var forecastControllers: [UIViewController] = []
                 list.forEach {
-                    let threeHourForecastVC = ThreeHourForecastViewController(location: $0)
-                    forecasetControllers.append(threeHourForecastVC)
+                    let threeHourForecasetVC = ThreeHourForecastViewController(location: $0)
+                    forecastControllers.append(threeHourForecasetVC)
                 }
-                self!.controllers = forecasetControllers
-                self!.setUpViewControllers(viewControllers: self!.controllers, page: 0, direction: .forward, animated: true)
+                // スクロール後のページを判定
+                let previousValue = self!.controllers.count
+                let currentValue = forecastControllers.count
+                var page = 0
+                // pageを追加した場合は、最後のページを表示するように設定する
+                if previousValue != 0, previousValue < currentValue { page = currentValue - 1 }
+                
+                self!.controllers = forecastControllers
+                self!.setUpViewControllers(page: page, direction: .forward, animated: false)
                 
             })
             .disposed(by: disposeBag)
     }
     
-    /// setViewControllersメソッドと同時にcurrentPageを更新する
-    func setUpViewControllers(viewControllers: [UIViewController], page: Int,  direction: UIPageViewController.NavigationDirection, animated: Bool) {
+    /// setViewControllersが必要な場合はこのメソッドを実行する
+    func setUpViewControllers(page: Int,  direction: UIPageViewController.NavigationDirection, animated: Bool) {
         // ViewControllersの設定と現在ページの設定
-        setViewControllers([viewControllers[page]], direction: direction, animated: animated)
-        self.currentPage = page
+        setViewControllers([controllers[page]], direction: direction, animated: animated)
+        currentPage = page
         // 親ViewのUILabelをスライドさせる
         guard let weatherVC = parent as? WeatherViewController else { return }
-        weatherVC.moveSlidingLabel(itemsCount: viewControllers.count , to: page)
+        weatherVC.moveSlidingLabel(itemsCount: controllers.count , to: page)
+        
     }
 
 

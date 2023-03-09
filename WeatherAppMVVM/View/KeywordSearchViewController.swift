@@ -91,9 +91,9 @@ class KeywordSearchViewController: UIViewController {
                             self!.present(alertController, animated: true)
                             
                         } else {
-                            // 正常に終了した場合は、MainVCに戻る
+                            // 正常に終了した場合は、WeatherVCに戻る
                             alertController.dismiss(animated: true)
-                            self!.navigationController?.popViewController(animated: true)
+                            self!.navigationController?.popToRootViewController(animated: true)
                         }
                     }
                 }

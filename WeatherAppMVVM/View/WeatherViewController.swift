@@ -105,7 +105,7 @@ class WeatherViewController: UIViewController {
             slidingLabel.frame.size.width = view.bounds.width / CGFloat(itemsCount)
         }
         
-        UIView.animate(withDuration: 0.2, delay: 0, animations: { [weak self] in
+        UIView.animate(withDuration: 0.1, delay: 0, animations: { [weak self] in
             self!.slidingLabel.frame.origin.x = self!.slidingLabel.bounds.width * CGFloat(page)
         })
         
@@ -160,7 +160,7 @@ extension WeatherViewController: LocationTabCollectionViewCellDelegate {
         var direction: UIPageViewController.NavigationDirection = .forward
         if currentPage > page { direction = .reverse }
         
-        mainPageVC.setUpViewControllers(viewControllers: mainPageVC.controllers, page: page, direction: direction, animated: true)
+        mainPageVC.setUpViewControllers(page: page, direction: direction, animated: true)
     }
     
     

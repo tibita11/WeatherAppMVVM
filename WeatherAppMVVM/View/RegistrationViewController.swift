@@ -29,7 +29,7 @@ class RegistrationViewController: UIViewController {
             cell.titleImage.image = UIImage(systemName: defaultsData.type.image)
             cell.accessoryType = .disclosureIndicator
 
-            if dataSource[SettingSection.registerdLocation.number].items.count >= 5 {
+            if dataSource[SettingSection.registerdLocation.number].items.count >= 3 {
                 // DBに登録されている数が5以上の場合は選択不可
                 cell.isUserInteractionEnabled = false
                 cell.backgroundColor = .systemGray6

@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThreeHourForecastViewController" customModule="WeatherAppMVVM" customModuleProvider="target">
             <connections>
-                <outlet property="titleLabel" destination="JJM-E8-Txi" id="WDZ-Re-cWi"/>
+                <outlet property="currentWeatherView" destination="w7b-pe-q90" id="zts-mx-evz"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,34 +20,20 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="始まり" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcU-Zf-bkG">
-                    <rect key="frame" x="173.66666666666666" y="59" width="46" height="18"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="終わり" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWE-nO-4Ft">
-                    <rect key="frame" x="173.66666666666666" y="800" width="46" height="18"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJM-E8-Txi">
-                    <rect key="frame" x="196.66666666666666" y="127" width="0.0" height="0.0"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w7b-pe-q90" customClass="CurrentWeatherView" customModule="WeatherAppMVVM" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="59" width="393" height="300"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="Qpg-tu-PQf"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="fWE-nO-4Ft" secondAttribute="bottom" id="6h9-lk-cQq"/>
-                <constraint firstItem="JJM-E8-Txi" firstAttribute="top" secondItem="dcU-Zf-bkG" secondAttribute="bottom" constant="50" id="BI5-r3-azV"/>
-                <constraint firstItem="JJM-E8-Txi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="HdI-yx-LYj"/>
-                <constraint firstItem="fWE-nO-4Ft" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="IEM-hy-Gv3"/>
-                <constraint firstItem="dcU-Zf-bkG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="JQ2-aD-lo8"/>
-                <constraint firstItem="dcU-Zf-bkG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="LfP-3E-eSE"/>
+                <constraint firstItem="w7b-pe-q90" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="UuD-FH-5IO"/>
+                <constraint firstItem="w7b-pe-q90" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZXb-FC-hyN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="w7b-pe-q90" secondAttribute="trailing" id="bqj-gH-pIr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="132" y="-11"/>

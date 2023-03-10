@@ -9,9 +9,10 @@ import UIKit
 
 class ThreeHourForecastViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
     /// 設定されている地点の情報を格納
     private var location: Location
+    
+    @IBOutlet weak var currentWeatherView: CurrentWeatherView!
     
     init(location: Location) {
         self.location = location
@@ -27,9 +28,13 @@ class ThreeHourForecastViewController: UIViewController {
         setUp()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     /// 初期設定
     private func setUp() {
-        titleLabel.text = location.title
+
     }
 
 }

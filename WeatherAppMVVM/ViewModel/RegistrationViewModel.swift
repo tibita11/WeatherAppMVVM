@@ -22,6 +22,7 @@ protocol RegistrationViewModelOutput: AnyObject {
     var itemObserver: Observable<[SettingSectionModel]> { get }
     var locationErrorObserver: Observable<LocationError> { get }
     var isUpdatingObserver: Observable<Bool> { get }
+    var isDeplicateObserver: Observable<(Int?, Location)> { get }
 }
 
 
@@ -43,6 +44,8 @@ class RegistrationViewModel: NSObject, RegistrationViewModelType {
     private let locationError = PublishRelay<LocationError>()
     /// 現在位置取得の開始終了を通知
     private let isUpdating = PublishRelay<Bool>()
+    /// 重複チェック後に通知
+    private let isDeplicate = PublishRelay<(Int?, Location)>()
     
     override init() {
         super.init()
@@ -116,6 +119,11 @@ class RegistrationViewModel: NSObject, RegistrationViewModelType {
         }
     }
     
+    /// DBに保存
+    func addData(object: Location) {
+        DataStorage().addData(object: object)
+    }
+    
 }
 
 
@@ -132,6 +140,11 @@ extension RegistrationViewModel: RegistrationViewModelOutput {
     var isUpdatingObserver: Observable<Bool> {
         return isUpdating.asObservable()
     }
+    
+    var isDeplicateObserver: Observable<(Int?, Location)> {
+        return isDeplicate.asObservable()
+    }
+    
 }
 
 
@@ -173,13 +186,11 @@ extension RegistrationViewModel: CLLocationManagerDelegate {
                 return
             }
             newLocation.title = "\(administrativeArea)\(locality)"
-            // DBに保存
-            DataStorage().addData(object: newLocation)
+            // 重複チェック
+            let index = DataStorage().checkingForDeplicate(object: newLocation)
+            self!.isDeplicate.accept((index, newLocation))
             // 更新中Viewを非表示
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                // 非表示を遅らせる
-                self!.isUpdating.accept(false)
-            }
+            self!.isUpdating.accept(false)
             
         }
 

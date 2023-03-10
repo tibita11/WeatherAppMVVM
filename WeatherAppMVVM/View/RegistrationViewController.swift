@@ -108,6 +108,33 @@ class RegistrationViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        // 重複チェック後の処理を表示
+        viewModel.isDeplicateObserver
+            .subscribe(onNext: { [weak self] isDeplicate in
+                guard let self = self else { return }
+                if let index = isDeplicate.0 {
+                    // 重複がある場合
+                    if let rootVC = self.navigationController?.viewControllers.first as? WeatherViewController {
+                        rootVC.setViewControllers(page: index)
+                    }
+                    self.navigationController?.popToRootViewController(animated: true)
+                } else {
+                    // 重複がない場合
+                    let alertController = UIAlertController(title: "\(isDeplicate.1.title)", message: "追加しますか？", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "はい", style: .default) { _ in
+                        // realmに保存する
+                        self.viewModel.addData(object: isDeplicate.1)
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                    let cancelAction = UIAlertAction(title: "いいえ", style: .cancel)
+                    
+                    alertController.addAction(okAction)
+                    alertController.addAction(cancelAction)
+                    self.present(alertController, animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     /// TableViewに関する初期設定

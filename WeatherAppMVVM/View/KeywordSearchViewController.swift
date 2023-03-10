@@ -11,7 +11,7 @@ import RxCocoa
 import RxOptional
 
 class KeywordSearchViewController: UIViewController {
-
+    
     @IBOutlet weak var keywordSearchBar: UISearchBar!
     
     @IBOutlet weak var tableView: UITableView!
@@ -22,7 +22,7 @@ class KeywordSearchViewController: UIViewController {
     
     
     // MARK: - View Life Cycle
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,18 +82,27 @@ class KeywordSearchViewController: UIViewController {
                 let okAction = UIAlertAction(title: "OK", style: .default) { _ in
                     // Realmに登録
                     self!.viewModel.saveData() { [weak self] error in
-                        if let error = error {
-                            // エラーの場合はアラートを表示
+                        guard let self = self else { return }
+                        guard let error = error else {
+                            // 正常に終了した場合は、WeatherVCに戻る
+                            self.navigationController?.popToRootViewController(animated: true)
+                            return
+                        }
+                        
+                        switch error as! SearchError {
+                        case .fetchFailed:
+                            // 取得エラーの場合はアラートを表示
                             alertController.dismiss(animated: true)
-                            let alertController = self!.createAlert(title: error.localizedDescription, message: "他の場所を選択してください。", isCancel: false)
+                            let alertController = self.createAlert(title: error.localizedDescription, message: "他の場所を選択してください。", isCancel: false)
                             let okAction = UIAlertAction(title: "はい", style: .default)
                             alertController.addAction(okAction)
-                            self!.present(alertController, animated: true)
-                            
-                        } else {
-                            // 正常に終了した場合は、WeatherVCに戻る
-                            alertController.dismiss(animated: true)
-                            self!.navigationController?.popToRootViewController(animated: true)
+                            self.present(alertController, animated: true)
+                        case .deplicateError(let index):
+                            // 重複エラーの場合、既存のページを表示
+                            if let rootVC = self.navigationController?.viewControllers.first as? WeatherViewController {
+                                rootVC.setViewControllers(page: index)
+                            }
+                            self.navigationController?.popToRootViewController(animated: true)
                         }
                     }
                 }

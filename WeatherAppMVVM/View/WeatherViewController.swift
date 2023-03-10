@@ -35,6 +35,8 @@ class WeatherViewController: UIViewController {
         return height
     }
     
+    var chiledVC: MainPageViewController!
+    
     
     // MARK: - View Life Cycle
     
@@ -76,17 +78,17 @@ class WeatherViewController: UIViewController {
     
     /// PageViewController初期設定
     private func setUpPageView() {
-        let mainPageVC = MainPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        addChild(mainPageVC)
-        mainPageVC.view.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(mainPageVC.view)
+        chiledVC = MainPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        addChild(chiledVC)
+        chiledVC.view.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(chiledVC.view)
         // オートレイアウト設定
-        mainPageVC.view.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        mainPageVC.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
-        mainPageVC.view.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        mainPageVC.view.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        chiledVC.view.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        chiledVC.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        chiledVC.view.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        chiledVC.view.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         
-        mainPageVC.didMove(toParent: self)
+        chiledVC.didMove(toParent: self)
         
         // pageViewControllerとバインド
         itemsObservable
@@ -99,13 +101,13 @@ class WeatherViewController: UIViewController {
                     forecastControllers.append(threeHourForecasetVC)
                 }
                 // スクロール後のページを判定
-                let previousValue = mainPageVC.controllers.count
+                let previousValue = self!.chiledVC.controllers.count
                 let currentValue = forecastControllers.count
                 var page = 0
                 // pageを追加した場合は、最後のページを表示する
                 if previousValue != 0, previousValue < currentValue { page = currentValue - 1 }
                 
-                mainPageVC.setUpPageViewControllers(viewControllers: forecastControllers, page: page, direction: .forward, animated: false)
+                self!.chiledVC.setUpPageViewControllers(viewControllers: forecastControllers, page: page, direction: .forward, animated: false)
                 self!.moveSlidingLabel(itemsCount: forecastControllers.count, to: page)
             })
             .disposed(by: disposeBag)
@@ -131,6 +133,12 @@ class WeatherViewController: UIViewController {
             self!.slidingLabel.frame.origin.x = self!.slidingLabel.bounds.width * CGFloat(page)
         })
         
+    }
+    
+    /// PageViewControllerのviewControllersをセットする
+    func setViewControllers(page: Int) {
+        chiledVC.setUpPageViewControllers(viewControllers: nil, page: page, direction: .forward, animated: false)
+        moveSlidingLabel(to: page)
     }
 
 

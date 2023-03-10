@@ -20,7 +20,6 @@ class DataStorage {
         try! realm.write {
             if let result = result {
                 // 既存の場合に追加
-                guard !checkingForDeplicate(object: object, list: result.list) else { return }
                 result.list.append(object)
             } else {
                 // listが存在しない場合は新規
@@ -65,8 +64,14 @@ class DataStorage {
     }
     
     /// 重複有無を確認する
-    private func checkingForDeplicate(object: Location, list: List<Location>) -> Bool {
-        var isDeplicate = false
+    /// - Parameter object: 重複の確認をするオブジェクト
+    /// - Returns: 重複しているindex, 重複がない場合nil
+    func checkingForDeplicate(object: Location) -> Int? {
+        // listの取得
+        let realm = try! Realm()
+        guard let result = realm.objects(LocationList.self).first?.list else { return nil }
+        // 重複チェック
+        var deplicateIndex: Int? = nil
         let subTitle = "subTitle"
         let title = "title"
         var checkingObject: (key: String, checkingText: String)
@@ -74,17 +79,17 @@ class DataStorage {
         checkingObject = object.subTitle != "" ? (key: subTitle, checkingText: object.subTitle) : (key: title, checkingText: object.title)
         
         if checkingObject.key == subTitle {
-            if list.first(where: {$0.subTitle == checkingObject.checkingText}) != nil {
+            if let index = result.firstIndex(where: {$0.subTitle == checkingObject.checkingText}) {
                 // 重複がある場合
-                isDeplicate = true
+                deplicateIndex = index
             }
         } else {
-            if list.first(where: {$0.title == checkingObject.checkingText}) != nil {
+            if let index = result.firstIndex(where: {$0.title == checkingObject.checkingText}) {
                 // 重複がある場合
-                isDeplicate = true
+                deplicateIndex = index
             }
         }
-        return isDeplicate
+        return deplicateIndex
     }
     
 }

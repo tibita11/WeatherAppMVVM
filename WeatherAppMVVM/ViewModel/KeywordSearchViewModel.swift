@@ -74,8 +74,7 @@ class KeywordSearchViewModel: NSObject, KeywordSearchViewModelType {
         
         Geocoder().coordinate(address: address) { coordinate in
             guard let coordinate = coordinate else {
-                completion(SearchError.fetchFailed)
-                return
+                return completion(SearchError.fetchFailed)
             }
             // Realmに保存
             let location = Location()
@@ -83,9 +82,14 @@ class KeywordSearchViewModel: NSObject, KeywordSearchViewModelType {
             location.subTitle = data.subtitle
             location.latitude = Double(coordinate.latitude)
             location.longitude = Double(coordinate.longitude)
-            DataStorage().addData(object: location)
-            
-            completion(nil)
+            // 重複チェック
+            guard let deplicateIndex = DataStorage().checkingForDeplicate(object: location) else {
+                // 重複がない場合に、保存する
+                DataStorage().addData(object: location)
+                return completion(nil)
+            }
+            // 重複がある場合はindexを返す
+            return completion(SearchError.deplicateError(index: deplicateIndex))
         }
     }
     
@@ -128,11 +132,14 @@ extension KeywordSearchViewModel: KeywordSearchViewModelOutput {
 // MARK: - Error
 enum SearchError: LocalizedError {
     case fetchFailed
+    case deplicateError(index: Int)
     
     var errorDescription: String? {
         switch self {
         case .fetchFailed:
             return "経度緯度の取得ができませんでした。"
+        case .deplicateError:
+            return "重複しています。"
         }
     }
 }

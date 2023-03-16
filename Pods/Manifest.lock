@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.6.4)
   - Differentiator (5.0.0)
   - Realm (10.34.1):
     - Realm/Headers (= 10.34.1)
@@ -23,19 +24,19 @@ PODS:
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
-  - XLPagerTabStrip (9.0.0)
 
 DEPENDENCIES:
+  - Alamofire
   - RealmSwift
   - RxCocoa
   - RxDataSources
   - RxOptional
   - RxRealm
   - RxSwift
-  - XLPagerTabStrip
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Differentiator
     - Realm
     - RealmSwift
@@ -45,9 +46,9 @@ SPEC REPOS:
     - RxRealm
     - RxRelay
     - RxSwift
-    - XLPagerTabStrip
 
 SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   Realm: fe824cd5b183cd55a50a6bcb4bce3ac1650e60b6
   RealmSwift: c7f668f82982fc8b62366b78b8dc761f15141df6
@@ -57,8 +58,7 @@ SPEC CHECKSUMS:
   RxRealm: 666c8785327fe2fff972a3093b35dc7055c1ca38
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: 2ea543d5884f69e82680efbc7b7810ba3b09ecb3
+PODFILE CHECKSUM: 5406011077e53e6329c38297680a1a8f8e7c3830
 
 COCOAPODS: 1.11.3

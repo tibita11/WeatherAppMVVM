@@ -7,6 +7,29 @@
 
 import Foundation
 
-class CurrentWeatherData {
+struct CurrentWeatherData: Decodable {
+    let weather: [Weather]
+    let main: Main
+    let clouds: Clouds
     
+    
+    struct Weather: Decodable {
+        let icon: String
+        let main: String
+        let description: String
+    }
+    
+    struct Main: Decodable {
+        let maxTemperature: Double
+        let minTemperature: Double
+        
+        enum CodingKeys: String, CodingKey {
+            case maxTemperature = "temp_max"
+            case minTemperature = "temp_min"
+        }
+    }
+    
+    struct Clouds: Decodable {
+        let all: Int
+    }
 }

@@ -31,14 +31,18 @@
 		A57A774529B0E881009EDA84 /* TableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A57A774429B0E881009EDA84 /* TableViewHeaderView.xib */; };
 		A57A774829B0E9CC009EDA84 /* UpdatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57A774729B0E9CC009EDA84 /* UpdatingView.swift */; };
 		A57A774A29B0E9D4009EDA84 /* UpdatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A57A774929B0E9D4009EDA84 /* UpdatingView.xib */; };
+		A587E3D329C2060E00359D33 /* OpenWeatherAPIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A587E3D229C2060E00359D33 /* OpenWeatherAPIKey.swift */; };
 		A5922BF729B860560078B8EB /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5922BF529B860560078B8EB /* MainPageViewController.swift */; };
 		A5922BF829B860560078B8EB /* MainPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5922BF629B860560078B8EB /* MainPageViewController.xib */; };
+		A5A7C2DE29BC04C000CE5BCB /* OpenWeatherGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A7C2DD29BC04C000CE5BCB /* OpenWeatherGateway.swift */; };
 		A5AA080429B17C3D00890B0B /* ThreeHourForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA080229B17C3D00890B0B /* ThreeHourForecastViewController.swift */; };
 		A5AA080529B17C3D00890B0B /* ThreeHourForecastViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5AA080329B17C3D00890B0B /* ThreeHourForecastViewController.xib */; };
 		A5AEDB8829B821AB000A1629 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AEDB8629B821AB000A1629 /* WeatherViewController.swift */; };
 		A5AEDB8929B821AB000A1629 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5AEDB8729B821AB000A1629 /* WeatherViewController.xib */; };
 		A5AEDB8C29B851D5000A1629 /* LocationTabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AEDB8A29B851D5000A1629 /* LocationTabCollectionViewCell.swift */; };
 		A5AEDB8D29B851D5000A1629 /* LocationTabCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5AEDB8B29B851D5000A1629 /* LocationTabCollectionViewCell.xib */; };
+		A5B3E92129BB365800D1CB71 /* ThreeHourForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B3E92029BB365800D1CB71 /* ThreeHourForecastViewModel.swift */; };
+		A5B3E92329BB3A6200D1CB71 /* OpenWeatherAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B3E92229BB3A6200D1CB71 /* OpenWeatherAPIClient.swift */; };
 		A5F4E92829B0ED7C0032DD40 /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F4E92729B0ED7C0032DD40 /* ItemData.swift */; };
 		A5F4E92A29B0EDA40032DD40 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F4E92929B0EDA40032DD40 /* SectionModel.swift */; };
 		A5F4E92C29B0EDD30032DD40 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F4E92B29B0EDD30032DD40 /* Location.swift */; };
@@ -74,14 +78,18 @@
 		A57A774429B0E881009EDA84 /* TableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewHeaderView.xib; sourceTree = "<group>"; };
 		A57A774729B0E9CC009EDA84 /* UpdatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatingView.swift; sourceTree = "<group>"; };
 		A57A774929B0E9D4009EDA84 /* UpdatingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatingView.xib; sourceTree = "<group>"; };
+		A587E3D229C2060E00359D33 /* OpenWeatherAPIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherAPIKey.swift; sourceTree = "<group>"; };
 		A5922BF529B860560078B8EB /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		A5922BF629B860560078B8EB /* MainPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainPageViewController.xib; sourceTree = "<group>"; };
+		A5A7C2DD29BC04C000CE5BCB /* OpenWeatherGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherGateway.swift; sourceTree = "<group>"; };
 		A5AA080229B17C3D00890B0B /* ThreeHourForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeHourForecastViewController.swift; sourceTree = "<group>"; };
 		A5AA080329B17C3D00890B0B /* ThreeHourForecastViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThreeHourForecastViewController.xib; sourceTree = "<group>"; };
 		A5AEDB8629B821AB000A1629 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		A5AEDB8729B821AB000A1629 /* WeatherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherViewController.xib; sourceTree = "<group>"; };
 		A5AEDB8A29B851D5000A1629 /* LocationTabCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTabCollectionViewCell.swift; sourceTree = "<group>"; };
 		A5AEDB8B29B851D5000A1629 /* LocationTabCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationTabCollectionViewCell.xib; sourceTree = "<group>"; };
+		A5B3E92029BB365800D1CB71 /* ThreeHourForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeHourForecastViewModel.swift; sourceTree = "<group>"; };
+		A5B3E92229BB3A6200D1CB71 /* OpenWeatherAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherAPIClient.swift; sourceTree = "<group>"; };
 		A5F4E92729B0ED7C0032DD40 /* ItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
 		A5F4E92929B0EDA40032DD40 /* SectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
 		A5F4E92B29B0EDD30032DD40 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -179,6 +187,7 @@
 			children = (
 				A5618FA429B0EFE30086226B /* RegistrationViewModel.swift */,
 				A5618FA629B0F09B0086226B /* KeywordSearchViewModel.swift */,
+				A5B3E92029BB365800D1CB71 /* ThreeHourForecastViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -192,7 +201,10 @@
 				A5618F9E29B0EECA0086226B /* Geocoder.swift */,
 				A5618FA029B0EF180086226B /* DataStorage.swift */,
 				A5618FA229B0EFA80086226B /* DataFormatter.swift */,
+				A587E3D229C2060E00359D33 /* OpenWeatherAPIKey.swift */,
 				A524018729BB0B09004B3C58 /* CurrentWeatherData.swift */,
+				A5B3E92229BB3A6200D1CB71 /* OpenWeatherAPIClient.swift */,
+				A5A7C2DD29BC04C000CE5BCB /* OpenWeatherGateway.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -380,7 +392,9 @@
 				A5AEDB8829B821AB000A1629 /* WeatherViewController.swift in Sources */,
 				A5618F9F29B0EECA0086226B /* Geocoder.swift in Sources */,
 				A5F4E92C29B0EDD30032DD40 /* Location.swift in Sources */,
+				A5B3E92129BB365800D1CB71 /* ThreeHourForecastViewModel.swift in Sources */,
 				A57A774329B0E878009EDA84 /* TableViewHeaderView.swift in Sources */,
+				A5A7C2DE29BC04C000CE5BCB /* OpenWeatherGateway.swift in Sources */,
 				A5618FA329B0EFA80086226B /* DataFormatter.swift in Sources */,
 				A57A773F29B0E6FD009EDA84 /* LocationTableViewCell.swift in Sources */,
 				A5F4E92A29B0EDA40032DD40 /* SectionModel.swift in Sources */,
@@ -388,8 +402,10 @@
 				A524018829BB0B09004B3C58 /* CurrentWeatherData.swift in Sources */,
 				A5AA080429B17C3D00890B0B /* ThreeHourForecastViewController.swift in Sources */,
 				A569C3BF29B0E34900D03CB2 /* AppDelegate.swift in Sources */,
+				A587E3D329C2060E00359D33 /* OpenWeatherAPIKey.swift in Sources */,
 				A5AEDB8C29B851D5000A1629 /* LocationTabCollectionViewCell.swift in Sources */,
 				A57A774829B0E9CC009EDA84 /* UpdatingView.swift in Sources */,
+				A5B3E92329BB3A6200D1CB71 /* OpenWeatherAPIClient.swift in Sources */,
 				A5618FA529B0EFE30086226B /* RegistrationViewModel.swift in Sources */,
 				A5618FA129B0EF180086226B /* DataStorage.swift in Sources */,
 				A57A773529B0E5BE009EDA84 /* KeywordSearchViewController.swift in Sources */,

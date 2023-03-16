@@ -1,0 +1,10 @@
+name: APIKey Settings
+on: push
+jobs:
+  APIKey-Settings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inject APIKey
+        run: echo "let openWeatherAPIKey = "$SECRET_SETTING"" > ls ../../WeatherAppMVVM/Model/OpenWeatherAPIKey.swift
+        env:
+          SECRET_SETTING: ${{ secrets.OPENWEATHER_API_KEY }}

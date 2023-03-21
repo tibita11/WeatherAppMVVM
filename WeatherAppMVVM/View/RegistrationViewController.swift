@@ -14,7 +14,7 @@ class RegistrationViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     /// RxDataSources - dataSource
-    let dataSource = RxTableViewSectionedReloadDataSource<SettingSectionModel>(configureCell: {
+    let dataSource = RxTableViewSectionedReloadDataSource<RegistrationTableViewSectionModel>(configureCell: {
         (dataSource, tableView, indexPath, item) in
         
         switch item {
@@ -29,7 +29,7 @@ class RegistrationViewController: UIViewController {
             cell.titleImage.image = UIImage(systemName: defaultsData.type.image)
             cell.accessoryType = .disclosureIndicator
 
-            if dataSource[SettingSection.registerdLocation.number].items.count >= 3 {
+            if dataSource[RegistrationTableViewSection.registerdLocation.number].items.count >= 3 {
                 // DBに登録されている数が5以上の場合は選択不可
                 cell.isUserInteractionEnabled = false
                 cell.backgroundColor = .systemGray6
@@ -48,7 +48,7 @@ class RegistrationViewController: UIViewController {
 
     }, canEditRowAtIndexPath: { (dataSource, index) in
         // registerdLocationのみ編集モードを可能にする
-        if index.section == SettingSection.registerdLocation.number { return true }
+        if index.section == RegistrationTableViewSection.registerdLocation.number { return true }
         return false
     })
     

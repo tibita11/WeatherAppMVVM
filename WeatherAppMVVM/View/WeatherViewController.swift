@@ -94,6 +94,7 @@ class WeatherViewController: UIViewController {
         itemsObservable
             .subscribe(onNext: { [weak self] locationList in
                 guard let list = locationList.first?.list else { return }
+                guard list.count != 0 else { return }
                 // controllersの設定
                 var forecastControllers: [UIViewController] = []
                 list.forEach {

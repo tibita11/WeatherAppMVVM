@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class ThreeHourForecastViewController: UIViewController {
 
@@ -19,7 +20,7 @@ class ThreeHourForecastViewController: UIViewController {
     private var viewModel: ThreeHourForecastViewModel!
     
     private let disposeBag = DisposeBag()
-    // 今日の日付を取得する
+    /// 今日の日付を取得する
     var currentDate: String {
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -27,6 +28,25 @@ class ThreeHourForecastViewController: UIViewController {
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
+    /// FiveDayWeatherViewの土台View
+    @IBOutlet weak var baseView: UIView!
+    
+    @IBOutlet weak var fiveDayWeatherView: FiveDayWeatherView!
+    
+    let dataSource = RxCollectionViewSectionedReloadDataSource<ForecastCollectionViewSectionModel>(configureCell: {
+        (dataSource, collectionView, indexPath, item) in
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ForecastCollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
+        cell.timeLabel.text = item.timeLabelText
+        cell.iconImage.image = item.icon
+        cell.tempretureLabel.text = item.tempLabelText
+        cell.precipitationLabel.text = item.precipitationLableText
+        return cell
+    }, configureSupplementaryView: {
+        (dataSource, collectionView, kind, index) in
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ForecastCollectionViewHeader", for: index) as! ForecastCollectionViewHeader
+        header.headerLabel.text = dataSource[index.section].header
+        return header
+    })
     
     
     // MARK: - View Life Cycle
@@ -44,6 +64,7 @@ class ThreeHourForecastViewController: UIViewController {
         super.viewDidLoad()
         
         setUp()
+        setUpFiveDayWeatherView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,12 +95,44 @@ class ThreeHourForecastViewController: UIViewController {
         // iconとバインド
         viewModel.output?.iconObserver
             .subscribe(onNext: { [weak self] image in
-                guard let self = self, let image = image else {
+                guard let self = self, let iconImage = image else {
+                    self?.currentWeatherView.icon.image = UIImage()
                     return
                 }
-                self.currentWeatherView.icon.image = image
+                self.currentWeatherView.icon.image = iconImage
             })
             .disposed(by: disposeBag)
+        // 角丸・影
+        baseView.layer.cornerRadius = 20
+        baseView.layer.shadowColor = UIColor.black.cgColor
+        baseView.layer.shadowOpacity = 0.15
+        baseView.layer.shadowRadius = 3.0
+        baseView.layer.shadowOffset = CGSize(width: 0.0, height: -3.0)
+    }
+    
+    /// 初期設定
+    private func setUpFiveDayWeatherView() {
+        fiveDayWeatherView.collectionView.register(UINib(nibName: "ForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ForecastCollectionViewCell")
+        fiveDayWeatherView.collectionView.register(UINib(nibName: "ForecastCollectionViewHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "ForecastCollectionViewHeader")
+        fiveDayWeatherView.collectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        // collectionViewとバインド
+        viewModel.output?.forecastSectionModelObserver
+            .bind(to: fiveDayWeatherView.collectionView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
+        
     }
 
+}
+
+extension ThreeHourForecastViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // セルサイズ
+        return CGSize(width: 50, height: collectionView.bounds.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        // ヘッダーサイズ
+        return CGSize(width: 50, height: collectionView.bounds.height)
+    }
+    
 }

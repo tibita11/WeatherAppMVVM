@@ -19,7 +19,7 @@ struct RegistrationViewInput {
 
 
 protocol RegistrationViewModelOutput: AnyObject {
-    var itemObserver: Observable<[SettingSectionModel]> { get }
+    var itemObserver: Observable<[RegistrationTableViewSectionModel]> { get }
     var locationErrorObserver: Observable<LocationError> { get }
     var isUpdatingObserver: Observable<Bool> { get }
     var isDeplicateObserver: Observable<(Int?, Location)> { get }
@@ -37,7 +37,7 @@ class RegistrationViewModel: NSObject, RegistrationViewModelType {
     
     private let disposeBag = DisposeBag()
     
-    private let item = PublishRelay<[SettingSectionModel]>()
+    private let item = PublishRelay<[RegistrationTableViewSectionModel]>()
     /// 現在位置取得のため
     private let locationManager = CLLocationManager()
     /// 現在位置取得に失敗した場合の通知
@@ -129,7 +129,7 @@ class RegistrationViewModel: NSObject, RegistrationViewModelType {
 
 // MARK: - MainViewModelOutput
 extension RegistrationViewModel: RegistrationViewModelOutput {
-    var itemObserver: Observable<[SettingSectionModel]> {
+    var itemObserver: Observable<[RegistrationTableViewSectionModel]> {
         return item.asObservable()
     }
     

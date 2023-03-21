@@ -8,9 +8,9 @@
 import Foundation
 import RxDataSources
 
-typealias SettingSectionModel = SectionModel<SettingSection, CellType>
+typealias RegistrationTableViewSectionModel = SectionModel<RegistrationTableViewSection, CellType>
 
-enum SettingSection {
+enum RegistrationTableViewSection {
     case searchKeyword
     case searchCurrentLocation
     case registerdLocation

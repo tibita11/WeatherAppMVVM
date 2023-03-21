@@ -11,7 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThreeHourForecastViewController" customModule="WeatherAppMVVM" customModuleProvider="target">
             <connections>
+                <outlet property="baseView" destination="XHm-vg-m1B" id="6MR-3N-Rqs"/>
                 <outlet property="currentWeatherView" destination="w7b-pe-q90" id="zts-mx-evz"/>
+                <outlet property="fiveDayWeatherView" destination="nFW-pJ-3Di" id="Hpo-gV-YMd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,19 +23,39 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w7b-pe-q90" customClass="CurrentWeatherView" customModule="WeatherAppMVVM" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="59" width="393" height="300"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="300"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="300" id="Qpg-tu-PQf"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHm-vg-m1B">
+                    <rect key="frame" x="0.0" y="315" width="393" height="537"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFW-pJ-3Di" customClass="FiveDayWeatherView" customModule="WeatherAppMVVM" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="10" width="393" height="517"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="nFW-pJ-3Di" secondAttribute="bottom" constant="10" id="4Vd-t7-5Hb"/>
+                        <constraint firstAttribute="trailing" secondItem="nFW-pJ-3Di" secondAttribute="trailing" id="7KH-FV-Q9W"/>
+                        <constraint firstItem="nFW-pJ-3Di" firstAttribute="top" secondItem="XHm-vg-m1B" secondAttribute="top" constant="10" id="Y2d-Lh-tr2"/>
+                        <constraint firstItem="nFW-pJ-3Di" firstAttribute="leading" secondItem="XHm-vg-m1B" secondAttribute="leading" id="rgd-gu-GjV"/>
                     </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="XHm-vg-m1B" secondAttribute="bottom" id="Fof-tS-21a"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XHm-vg-m1B" secondAttribute="trailing" id="H5s-ta-6tS"/>
+                <constraint firstItem="XHm-vg-m1B" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="IBf-hW-SeM"/>
                 <constraint firstItem="w7b-pe-q90" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="UuD-FH-5IO"/>
                 <constraint firstItem="w7b-pe-q90" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZXb-FC-hyN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="w7b-pe-q90" secondAttribute="trailing" id="bqj-gH-pIr"/>
+                <constraint firstItem="XHm-vg-m1B" firstAttribute="top" secondItem="w7b-pe-q90" secondAttribute="bottom" constant="15" id="g7Z-i9-XSM"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="132" y="-11"/>

@@ -12,6 +12,7 @@ target 'WeatherAppMVVM' do
   pod 'RealmSwift'
   pod 'RxRealm'
   pod 'Alamofire'
+  pod 'Kingfisher'
 
   # Pods for WeatherAppMVVM
 

@@ -129,7 +129,6 @@ class ThreeHourForecastViewModel: ThreeHourForecastViewModelType {
         var currentSection: [ForecastData] = []
         
         let sortedData = forecastDataArray.sorted(by: { $0.date < $1.date })
-        print(sortedData)
         
         for object in sortedData {
             if currentSection.isEmpty || object.headerDate == currentSection[0].headerDate {

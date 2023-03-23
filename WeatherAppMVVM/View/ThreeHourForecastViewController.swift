@@ -132,7 +132,7 @@ extension ThreeHourForecastViewController: UICollectionViewDelegate, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         // ヘッダーサイズ
-        return CGSize(width: 50, height: collectionView.bounds.height)
+        return CGSize(width: 40, height: collectionView.bounds.height)
     }
     
 }

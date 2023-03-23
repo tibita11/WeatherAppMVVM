@@ -12,16 +12,14 @@ import RealmSwift
 import RxRealm
 
 class WeatherViewController: UIViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var containerView: UIView!
     
     private let disposeBag = DisposeBag()
     /// CollectionViewに表示するデータを格納
-    private var locations: List<Location>?
-    /// Realmが更新された場合に通知されるHot Observable
-    var itemsObservable: Observable<Results<LocationList>>!
+    private var locations: [Location]?
     /// CollectionView下部に設置
     private let slidingLabel = UILabel()
     /// NavigationBar下部までの高さ
@@ -42,8 +40,9 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUp()
+        
         setUpPageView()
+        setUp()
     }
     
     
@@ -62,26 +61,53 @@ class WeatherViewController: UIViewController {
         collectionView.register(UINib(nibName: "LocationTabCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "locationCell")
         collectionView.rx.setDataSource(self).disposed(by: disposeBag)
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
-        // Realm通知
-        let realm = try! Realm()
-        let locationList = realm.objects(LocationList.self)
-        itemsObservable = Observable.collection(from: locationList).share(replay: 1)
-        // collectionViewとバインド
-        itemsObservable
-            .subscribe(onNext: { [weak self] locationList in
-                // 取得したlistを格納
-                self!.locations = locationList.first?.list
-                self!.collectionView.reloadData()
+        // viewModelの設定
+        let viewModel = WeatherViewModel()
+        viewModel.gettingDefaultLocation()
+        viewModel.setUp()
+        // pageViewControllerとバインド
+        viewModel.output.pagesObserver
+            .subscribe(onNext: { [weak self] pages in
+                guard let self = self else { return }
+                // collectionViewとバインド
+                self.locations = pages
+                self.collectionView.reloadData()
+                
+                var threeHourForecastViewControllers:[ThreeHourForecastViewController] = []
+                pages.forEach {
+                    let threeHourForecastVC = ThreeHourForecastViewController(location: $0)
+                    threeHourForecastViewControllers.append(threeHourForecastVC)
+                }
+                // 前回ページ数
+                let previousValue = self.chiledVC.controllers.count
+                // 今回ページ数
+                let currentValue = threeHourForecastViewControllers.count
+                var page = 0
+                // pageを追加した場合は、最後のページを画面に表示する
+                if previousValue != 0, previousValue < currentValue { page = currentValue - 1 }
+                self.chiledVC.setUpPageViewControllers(viewControllers: threeHourForecastViewControllers, page: page, direction: .forward, animated: false)
+                self.moveSlidingLabel(itemsCount: threeHourForecastViewControllers.count, to: page)
+                
             })
             .disposed(by: disposeBag)
+        
+        // 位置情報で権限エラーが出た場合のアラート表示
+        viewModel.output.locationErrorObserver
+            .subscribe(onNext: { [weak self] error in
+                self!.showPermissionAlert(error: error)
+            })
+            .disposed(by: disposeBag)
+        
     }
     
     /// PageViewController初期設定
     private func setUpPageView() {
+        // pageViewControllerの設定
         chiledVC = MainPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
         addChild(chiledVC)
         chiledVC.view.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(chiledVC.view)
+        
         // オートレイアウト設定
         chiledVC.view.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         chiledVC.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
@@ -89,29 +115,6 @@ class WeatherViewController: UIViewController {
         chiledVC.view.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         
         chiledVC.didMove(toParent: self)
-        
-        // pageViewControllerとバインド
-        itemsObservable
-            .subscribe(onNext: { [weak self] locationList in
-                guard let list = locationList.first?.list else { return }
-                guard list.count != 0 else { return }
-                // controllersの設定
-                var forecastControllers: [UIViewController] = []
-                list.forEach {
-                    let threeHourForecasetVC = ThreeHourForecastViewController(location: $0)
-                    forecastControllers.append(threeHourForecasetVC)
-                }
-                // スクロール後のページを判定
-                let previousValue = self!.chiledVC.controllers.count
-                let currentValue = forecastControllers.count
-                var page = 0
-                // pageを追加した場合は、最後のページを表示する
-                if previousValue != 0, previousValue < currentValue { page = currentValue - 1 }
-                
-                self!.chiledVC.setUpPageViewControllers(viewControllers: forecastControllers, page: page, direction: .forward, animated: false)
-                self!.moveSlidingLabel(itemsCount: forecastControllers.count, to: page)
-            })
-            .disposed(by: disposeBag)
         
     }
     
@@ -141,8 +144,29 @@ class WeatherViewController: UIViewController {
         chiledVC.setUpPageViewControllers(viewControllers: nil, page: page, direction: .forward, animated: false)
         moveSlidingLabel(to: page)
     }
-
-
+    
+    /// 位置情報の権限エラーに関するアラート生成
+    private func showPermissionAlert(error: LocationError) {
+        let alert = UIAlertController(title: "位置情報", message: error.localizedDescription, preferredStyle: .alert)
+        
+        if error == .authorityError {
+            // 権限エラーの場合は設定画面を開くボタンを追加
+            let goToSetting = UIAlertAction(title: "設定に移動", style: .default) { _ in
+                // 設定画面を開く処理
+                guard let settingUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+                if UIApplication.shared.canOpenURL(settingUrl) {
+                    UIApplication.shared.open(settingUrl)
+                }
+            }
+            alert.addAction(goToSetting)
+        }
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true)
+    }
+    
+    
 }
 
 
@@ -152,7 +176,7 @@ extension WeatherViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return locations?.count ?? 0
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "locationCell", for: indexPath) as! LocationTabCollectionViewCell
         cell.locationLabel.text = locations?[indexPath.row].title ?? ""
@@ -160,7 +184,7 @@ extension WeatherViewController: UICollectionViewDataSource {
         cell.delegate = self
         return cell
     }
-
+    
 }
 
 

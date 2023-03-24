@@ -54,19 +54,4 @@ class OpenWeatherGateway {
         }
     }
     
-    /// 天気アイコンのデータを取得する
-    func gettingIconData(icon: String) -> Single<Data> {
-        let url = "https://openweathermap.org/img/wn/\(icon)@2x.png"
-        return Single<Data>.create { singleEvent in
-            let request = AF.request(url)
-                .validate()
-                .response { response in
-                    guard let data = response.data else {
-                        return singleEvent(.failure(ConnectingAPIError.noData))
-                    }
-                    singleEvent(.success(data))
-                }
-            return Disposables.create { request.cancel() }
-        }
-    }
 }

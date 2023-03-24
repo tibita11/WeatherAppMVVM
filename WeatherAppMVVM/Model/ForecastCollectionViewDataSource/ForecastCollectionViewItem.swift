@@ -27,16 +27,12 @@ struct ForecastData {
 extension ForecastData: ForecastDataDisable {
     var headerDate: String {
         let dateFormatter = DateFormatter()
-//        dateFormatter.timeZone = TimeZone.current
-//        dateFormatter.locale = Locale.current
         dateFormatter.dateFormat = "d日"
         return dateFormatter.string(from: date)
     }
     
     var timeLabelText: String {
         let dateFormatter = DateFormatter()
-//        dateFormatter.timeZone = TimeZone.current
-//        dateFormatter.locale = Locale.current
         dateFormatter.dateFormat = "H時"
         return dateFormatter.string(from: date)
     }

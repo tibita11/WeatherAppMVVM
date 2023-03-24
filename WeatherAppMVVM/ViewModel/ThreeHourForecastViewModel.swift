@@ -77,12 +77,14 @@ class ThreeHourForecastViewModel: ThreeHourForecastViewModelType {
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    dateFormatter.timeZone = TimeZone(identifier: "UTC")
                     // 変換後のデータを格納する
                     var forecastDataArray: [ForecastData] = []
                     
                     for data in fiveDayWeatherData.list {
-                        dispatchGroup.enter()
+                        
                             if let url = self.gettingIconURL(iconName: data.weather[0].icon) {
+                                dispatchGroup.enter()
                                 KingfisherManager.shared.retrieveImage(with: url) { result in
                                     switch result {
                                     case .success(let value):
@@ -95,9 +97,9 @@ class ThreeHourForecastViewModel: ThreeHourForecastViewModelType {
                                         forecastDataArray.append(newObject)
                                         print("画像取得失敗: \(error.localizedDescription)")
                                     }
+                                    dispatchGroup.leave()
                                 }
                             }
-                        dispatchGroup.leave()
                         }
                     
                     // 全ての非同期処理完了後に実行

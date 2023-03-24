@@ -81,12 +81,14 @@ class DataStorage {
         if checkingObject.key == subTitle {
             if let index = result.firstIndex(where: {$0.subTitle == checkingObject.checkingText}) {
                 // 重複がある場合
-                deplicateIndex = index
+                // Defaultで表示される分を加算
+                deplicateIndex = index + 1
             }
         } else {
             if let index = result.firstIndex(where: {$0.title == checkingObject.checkingText}) {
                 // 重複がある場合
-                deplicateIndex = index
+                // Defaultで表示される分を加算
+                deplicateIndex = index + 1
             }
         }
         return deplicateIndex

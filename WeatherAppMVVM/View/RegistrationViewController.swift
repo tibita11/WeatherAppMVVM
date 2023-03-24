@@ -41,8 +41,6 @@ class RegistrationViewController: UIViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath) as! LocationTableViewCell
             // 詳細設定
             cell.titleLabel.text = locationData.title
-            cell.latitudeLabel.text = "緯度: \(String(locationData.latitude))"
-            cell.longitudeLabel.text = "経度: \(String(locationData.longitude))"
             return cell
         }
 
